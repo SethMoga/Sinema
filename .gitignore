@@ -1,17 +1,23 @@
+# Environment variables / secrets
+.env
+*.env
+
 # Python virtual environment inside sinema
 sinema/Include/
 sinema/Lib/
 sinema/Scripts/
 sinema/pyvenv.cfg
+
+# Flask session files
 sinema/flask_session/
 
 # Python cache files
 __pycache__/
-*.pyc
+*.py[cod]
 
 # Optional: IDE/editor files
 .vscode/
 *.idea/
 
-# Folder that holds database file
-sinema/var/.env
+# Database / local instance files
+sinema/var/
