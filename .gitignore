@@ -13,4 +13,4 @@ __pycache__/
 *.idea/
 
 # Folder that holds database file
-sinema/var/
+sinema/var/.env
