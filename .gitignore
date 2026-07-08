@@ -1,8 +1,9 @@
-# Python virtual environment inside demo
+# Python virtual environment inside sinema
 sinema/Include/
 sinema/Lib/
 sinema/Scripts/
 sinema/pyvenv.cfg
+sinema/flask_session/
 
 # Python cache files
 __pycache__/
