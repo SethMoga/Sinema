@@ -1,0 +1,13 @@
+Users:
+
+username: abc
+email: abc@gmail.com
+password: 1234
+
+username: cookie
+email: cookies4ever@yahoo.com
+password: cookiemonster
+
+username: The Alpha Dude
+email: alphadude832@gmail.com
+password: pizza9

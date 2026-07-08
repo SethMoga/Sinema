@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ info.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+	
+	<!-- Latest compiled and minified CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- Bootstrap 5 Font Icons -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- Load Font Awesome from a CDN -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #000000;
+            font-family: "Inter", Arial, sans-serif;
+            color: #8C8C8C;
+            min-height: 100vh;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        /* NAV */
+        nav {
+            width: 100%;
+            height: 85px;
+            background-color: #000000;
+            border-bottom: 1px solid #910012;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 48px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: "Castellar", serif;
+            font-size: 40px;
+            font-weight: 700;
+            color: #910012;
+            text-decoration: none;
+        }
+
+        .nav-links {
+			display: flex;
+			gap: 32px;
+			list-style: none;
+		}
+
+		.nav-links a { 
+			font-family: Arial, sans-serif;
+			font-size: 16px;
+			color: #910012;
+			text-decoration: none;
+		}
+		
+		.nav-links a:hover {
+			color: #910012;
+			opacity: 0.8;
+		}
+
+		
+		.offcanvas-header, .offcanvas-body {
+			background-color: #000;
+		}
+
+		.btn-close {
+			background: url("{{ url_for('static', filename='images/x-circle.svg') }}") center/2.5em auto no-repeat !important;
+			width: 2.5rem;
+			height: 2.5rem;
+		}
+
+        form {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+		
+		.search-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .login-btn {
+            height: 40px;
+            width: 40px;
+            margin-left: 8px;
+            background-color: transparent;
+            border: 1px solid #910012;
+            border-radius: 50%;
+            color: #910012;
+            font-size: 18px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        .login-btn:hover {
+            background-color: rgba(145, 0, 18, 0.1);
+            color: #D7D7D7;
+        }
+
+        #searchbar {
+            width: 200px;
+            height: 40px;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            color: #000000;
+            background-color: #D7D7D7;
+            border: 1px solid #D7D7D7;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        #searchbar:focus { border-color: #910012; }
+
+        button[type="submit"] {
+            height: 40px;
+            padding: 0 16px;
+            background-color: transparent;
+            border: 1px solid #910012;
+            border-radius: 5px;
+            color: #910012;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button[type="submit"]:hover { background-color: rgba(145, 0, 18, 0.1); }
+
+        /* XM HERO BANNER */
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            height: 420px;
+            overflow: hidden;
+        }
+
+        .hero-backdrop {
+            position: absolute;
+            inset: 0;
+            background-image: url("{{ info.image_url }}");
+            background-size: cover;
+            background-position: center 20%;
+            filter: blur(18px) brightness(0.35);
+            transform: scale(1.1);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, #000000 100%);
+        }
+
+        /* XM CONTENT LAYOUT */
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 48px 64px;
+            position: relative;
+        }
+
+        .main-layout {
+            display: flex;
+            gap: 48px;
+            margin-top: -200px;
+            align-items: flex-start;
+        }
+
+        /* XM POSTER */
+        .poster-col {
+            flex-shrink: 0;
+            width: 280px;
+        }
+
+        .poster-img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            display: block;
+            border: 2px solid rgba(145, 0, 18, 0.4);
+        }
+
+        /* XM INFO COLUMN */
+        .info-col {
+            flex: 1;
+            padding-top: 160px;
+        }
+
+        .media-type-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            background-color: #910012;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #D7D7D7;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 16px;
+        }
+
+        .movie-title {
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+        }
+
+        /* XM META CARDS */
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 36px;
+        }
+
+        .meta-card {
+            padding: 16px 14px;
+            background-color: #111111;
+            border-top: 3px solid #910012;
+            border-radius: 4px;
+        }
+
+        .meta-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #555555;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .meta-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #D7D7D7;
+        }
+
+        /* XM DESCRIPTION */
+        .description-section {
+            border-top: 1px solid #222222;
+            padding-top: 28px;
+        }
+
+        .description-section h3 {
+            font-size: 12px;
+            font-weight: 700;
+            color: #555555;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 14px;
+        }
+
+        .description-section p {
+            font-size: 1rem;
+            line-height: 1.75;
+            color: #9A9A9A;
+            max-width: 720px;
+        }
+
+        /* XM BACK BUTTON */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 32px 0 0;
+            min-height: 42px;
+            padding: 10px 20px;
+            border: 1px solid #910012;
+            border-radius: 5px;
+            color: #910012;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(145, 0, 18, 0.1);
+            color: #D7D7D7;
+        }
+		
+		
+		
+		/* XM SHARE BUTTON */
+
+        .action-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            margin-top: 32px;
+        }
+
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 42px;
+            padding: 10px 20px;
+            border: 1px solid #910012;
+            border-radius: 5px;
+            color: #910012;
+            background-color: transparent;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .share-btn:hover {
+            background-color: rgba(145, 0, 18, 0.1);
+            color: #D7D7D7;
+        }
+
+        .favorite-row {
+            margin-top: 14px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .favorite-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 42px;
+            padding: 10px 20px;
+            border: 1px solid #910012;
+            border-radius: 5px;
+            color: #910012;
+            background-color: transparent;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .favorite-btn:hover {
+            background-color: rgba(145, 0, 18, 0.1);
+            color: #D7D7D7;
+        }
+
+        .favorite-btn.active {
+            background-color: #910012;
+            color: #D7D7D7;
+        }
+
+        .review-actions {
+            margin-top: 12px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .write-review-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            padding: 10px 18px;
+            border: 1px solid #910012;
+            border-radius: 5px;
+            color: #910012;
+            background-color: transparent;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .write-review-btn:hover {
+            background-color: rgba(145, 0, 18, 0.1);
+            color: #D7D7D7;
+        }
+
+        .review-form-wrap {
+            margin-bottom: 16px;
+            padding: 14px;
+            border: 1px solid #222222;
+            border-radius: 6px;
+            background-color: #0d0d0d;
+        }
+
+        .review-form-wrap.hidden {
+            display: none;
+        }
+
+        .review-form {
+            display: grid;
+            gap: 10px;
+        }
+
+        .review-form input,
+        .review-form textarea {
+            width: 100%;
+            background-color: #101010;
+            border: 1px solid #2f2f2f;
+            border-radius: 5px;
+            color: #d7d7d7;
+            font-size: 14px;
+            padding: 10px;
+            outline: none;
+        }
+
+        .review-form input:focus,
+        .review-form textarea:focus {
+            border-color: #910012;
+        }
+
+        .review-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .review-form-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .review-form-submit,
+        .review-form-cancel {
+            min-height: 38px;
+            padding: 8px 14px;
+            border: 1px solid #910012;
+            border-radius: 5px;
+            background-color: transparent;
+            color: #910012;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .review-form-submit:hover,
+        .review-form-cancel:hover {
+            background-color: rgba(145, 0, 18, 0.1);
+            color: #d7d7d7;
+        }
+
+        .local-reviews-list {
+            display: grid;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .local-reviews-empty {
+            color: #6f6f6f;
+            font-size: 13px;
+            margin-top: 6px;
+            margin-bottom: 6px;
+        }
+		
+		
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .main-layout {
+                flex-direction: column;
+                margin-top: -120px;
+                gap: 32px;
+            }
+
+            .poster-col {
+                width: 200px;
+                margin: 0 auto;
+            }
+
+            .info-col {
+                padding-top: 0;
+                width: 100%;
+            }
+
+            .meta-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .content-wrapper {
+                padding: 0 32px 48px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 0 24px;
+            }
+
+            .logo {
+                font-size: 28px;
+            }
+
+            #searchbar {
+                width: 120px;
+            }
+
+            .hero-banner {
+                height: 260px;
+            }
+
+            .content-wrapper {
+                padding: 0 16px 40px;
+            }
+
+            .main-layout {
+                margin-top: -80px;
+            }
+
+            .meta-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .movie-title {
+                font-size: 1.6rem;
+            }
+			
+			/* XM SHARE BUTTON */
+
+            .action-row {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+	
+	<style>
+		.video-clips {
+			overflow: hidden;
+			border-radius: 6px;
+		}
+		
+		.media-player {
+			position: relative;
+			box-sizing: border-box; 
+			width: 100%;
+			aspect-ratio: 16 / 9;
+			display: flex;
+		}
+		.media-player > * {
+			width: 100%;
+			height: 100%;
+			display: block;
+		}
+		
+		#player {
+			flex-grow: 3;
+		}
+		
+		.media-btns {	
+			position: absolute;
+			left: 0;
+			top: 0;
+			display: flex;
+			justify-content: space-between;
+			width: 100%;
+			height: 100%;
+			align-items: center;
+		}
+		
+		button.prev, button.next {
+			height: 100%;
+			border: none;
+			color: #910012;
+			background-color: rgba(145, 0, 18, 0);
+			font-size: 2.4rem;
+			padding: 0;
+			transform: skew(0deg, 0deg);
+			position: absolute;
+			transition: 0.2s ease-in all;
+		}
+		
+		button.prev {
+			left: 0px;
+		}
+		
+		button.next {
+			right: 0px;
+		}
+		
+		button.prev:hover {
+			background-color: rgba(145, 0, 18, 1);
+			color: white;
+			font-size: 3.2rem;
+			transform: skew(-12deg, 0deg);
+			padding: 0 2rem 0 7rem;
+			left: -80px;
+			box-shadow: 6px 0px 0px white, 14px 0px 0px rgba(145, 0, 18, 1), 20px 0px 0px white, 30px 0px 0px rgba(145, 0, 18, 1), 52px 0px 4px 8px rgba(0, 0, 0, 0.485);
+		}
+		
+		button.next:hover {
+			background-color: rgba(145, 0, 18, 1);
+			color: white;
+			font-size: 3.2rem;
+			padding: 0 7rem 0 2rem;
+			transform: skew(-12deg, 0deg);
+			right: -80px;
+			box-shadow: -6px 0px 0px white, -14px 0px 0px rgba(145, 0, 18, 1), -20px 0px 0px white, -30px 0px 0px rgba(145, 0, 18, 1), -52px 0px 4px 8px rgba(0, 0, 0, 0.485);
+		}
+		
+		.media-player .btn-wrapper {
+			width: 50px;
+			position: relative;
+		}
+		
+	</style>
+	
+	<style>
+		.reviews-heading {
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid #222222;
+            font-size: 24px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #8c8c8c;
+        }
+
+        .reviews-subtitle {
+            margin-top: 8px;
+            margin-bottom: 14px;
+            color: #6f6f6f;
+            font-size: 13px;
+        }
+
+        .mock-reviews {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .mock-review-card {
+            background-color: #111111;
+            border: 1px solid #222222;
+            border-left: 3px solid #910012;
+            border-radius: 6px;
+            padding: 14px;
+        }
+
+        .mock-review-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            gap: 10px;
+        }
+
+        .mock-review-user {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #d7d7d7;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .mock-review-avatar {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #910012;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #910012;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .mock-review-rating {
+            color: #e0cd22;
+            font-size: 14px;
+            letter-spacing: 0.05em;
+        }
+
+        .mock-review-text {
+            color: #9a9a9a;
+            font-size: 14px;
+            line-height: 1.7;
+            margin: 0 0 8px 0;
+        }
+
+        .mock-review-date {
+            color: #6f6f6f;
+            font-size: 12px;
+            margin: 0;
+        }
+
+        .mock-review-note {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px dashed #333333;
+            border-radius: 6px;
+            padding: 10px 12px;
+            color: #6f6f6f;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+		
+		.star-icon {
+			background: linear-gradient(180deg, yellow, #b36c02);
+			background-size: 100% 100%;
+			background-clip: text;
+			color: transparent;
+			text-shadow: none;
+		}
+		
+		.login-wrapper {
+			position: relative;
+			width: 120px;
+			/*background-color: yellow;*/
+			display: flex;
+			justify-content: center;
+		}
+		
+		#login-button-link {
+			
+			display: block;
+			background-color: #910012; 
+			color: white;
+			transition: background-color 0.2s ease, color 0.2s ease;
+			cursor: pointer;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		
+		#logout-button-link {
+			display: block;
+			background-color: #910012; 
+			color: white;
+			transition: all 0.2s ease;
+			cursor: pointer;
+			border-radius: 5px;
+			padding: 8px 16px;
+			margin: 0 5px;
+			text-decoration: none;
+		}
+		
+		#login-button-link:hover {
+			background-color: white;
+			color: #910012;
+		}
+		
+		.logged-in-menu {
+			display: none;
+			position: absolute;
+			/*background-color: green;*/
+			padding-top: 6px;
+			color: black;
+			width: 100%;
+			top: 100%;
+			text-align: center;
+		}
+		
+		.menu-nav {
+			background-color: white;
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			border-radius: 4px;
+		}
+		
+		.menu-nav > * {
+			padding: 6px 0;
+		}
+		
+		#login-button-link:hover + .logged-in-menu {
+			display: block;
+		}
+		
+		#login-button-link + .logged-in-menu:hover {
+			display: block;
+		}
+		
+	</style>
+</head>
+<body>
+    <!--IN PROGRESS-->
+	<header class="sticky-top shadow">
+		<nav class="navbar navbar-expand-lg">
+			<div class="container-fluid">
+
+				<a class="logo" href="/">
+					SINEMA
+				</a>
+
+				<button class="btn navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#collapsibleNavbar">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="offcanvas offcanvas-top" id="collapsibleNavbar" style="height: 100vh;">
+					<div class="offcanvas-header">
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+					</div>
+					<div class="offcanvas-body">
+						<ul class="navbar-nav nav-links w-100">
+							<div class="container-fluid d-lg-flex justify-content-center gap-2 text-center">
+								<li class="nav-item">
+									<a class="nav-link" href="/movies">Movies</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="/tv">TV</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="/trending">Trending</a>
+								</li>
+							</div>
+							
+							<li class="nav-item">
+							
+								<div class="container-fluid justify-content-center search-container">
+									<form method="GET" action="/search">
+										<input id="searchbar" type="search" name="search" placeholder="Search..." required />
+										<button type="submit">Search</button>
+									</form>
+								</div>
+							</li>
+							
+							<li class="nav-item">
+								<!--<a href="/login" class="login-btn" title="Login">👤</a>-->
+									
+								<div class="container-fluid justify-content-center login-wrapper">
+								{% if user_data %}
+									<a id="login-button-link" class="login-btn"><i class="bi bi-person-fill"></i></a>
+									<div class="logged-in-menu">
+										<ul class="menu-nav">
+											<li><p style="margin: 0; font-weight: bold;">{{ user_data.username }}</p></li>
+											<!--<li><p style="margin: 0;">UserID: {{ session.get('user_id') }}</p></li>-->
+											<li><a href="/user/{{ user_data.username }}">My Profile</a></li>
+											<li><a id="logout-button-link" href="/logout">Logout</a></li>
+										</ul>
+									</div>
+								{% else %}
+									<a id="login-button-link" class="btn" href="/login">Login</a>
+								{% endif %}
+								</div>
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</nav>
+	</header>
+	<!--IN PROGRESS-->
+
+    <!-- XM BLURRED BACKDROP -->
+    <div class="hero-banner">
+        <div class="hero-backdrop"></div>
+        <div class="hero-overlay"></div>
+    </div>
+	
+	<!-- XM MAIN CONTENT -->
+    <div class="content-wrapper">
+        <div class="main-layout">
+
+            <!-- POSTER -->
+            <div class="poster-col">
+                <img class="poster-img" src="{{ info.image_url }}" alt="{{ info.title }} poster">
+				
+				<div class="favorite-row">
+                    <!--checks if client is signed in as user via session ID. Otherwise, redirect to login page.-->
+					{% if session.get('user_id') %}
+						<button type="button" class="favorite-btn" id="favorite-btn" onclick="toggleFavorite()" aria-pressed="false"></button>
+					{% else %}
+						<button type="button" class="favorite-btn" id="favorite-btn" onclick="redirectToLogin()" aria-pressed="false"></button>
+					{% endif %}
+                </div>
+			</div>
+
+            <!-- INFO -->
+            <section class="info-col">
+                <span class="media-type-badge">{{ info.show_type }}</span>
+                <h1 class="movie-title">{{ info.title }}</h1>
+
+                <div class="meta-grid">
+                    <div class="meta-card">
+                        <p class="meta-label">Year</p>
+                        <p class="meta-value">{{ info.year_released }}</p>
+                    </div>
+                    <div class="meta-card">
+                        <p class="meta-label">{% if info.show_type == "Movie" %}Movie Rating{% else %}TV Rating{% endif %}</p>
+                        <p class="meta-value">{{ info.rating }}</p>
+                    </div>
+                    <div class="meta-card">
+                        <p class="meta-label">Runtime</p>
+                        <p class="meta-value">{{ info.runtime }}</p>
+                    </div>
+                    <div class="meta-card">
+                        <p class="meta-label">Type</p>
+                        <p class="meta-value">{{ info.show_type }}</p>
+                    </div>
+                </div>
+
+                <div class="description-section">
+                    <h3>Description</h3>
+                    <p>{{ info.description }}</p>
+                </div>
+				
+				{% if info.videos %}
+					<div class="video-clips">
+
+						<div class="media-player">
+						
+							<div class="btn-wrapper">
+								<button class="prev" onclick="playVideo(-1)"><i class="bi bi-arrow-left-circle-fill"></i></button>
+							</div>
+							
+							<div id="player"></div>
+							
+							<div class="btn-wrapper">
+								<button class="next" onclick="playVideo(1)"><i class="bi bi-arrow-right-circle-fill"></i></button>
+							</div>
+						</div>
+						
+					</div>
+				{% endif %}
+				
+                
+				<div class="action-row">
+                    <a class="back-btn" onclick="history.back()">&#8592; Back to Results</a>
+                    <button type="button" class="share-btn" id="share-btn" onclick="copyShareLink()">Share Link</button>
+                </div>
+
+				<h3 class="reviews-heading">WHAT OTHERS ARE SAYING</h3>
+				
+				<div class="review-actions">
+					<!--checks if client is signed in as user via session ID. Otherwise, redirect to login page.-->
+					{% if session.get('user_id') %}
+						<button type="button" class="write-review-btn" id="write-review-btn" onclick="toggleReviewForm()">Write Review</button>
+					{% else %}
+						<button type="button" class="write-review-btn" id="write-review-btn" onclick="redirectToLogin()">Write Review</button>
+					{% endif %}
+                </div>
+
+				<!--
+                <div class="review-form-wrap hidden" id="review-form-wrap">
+                    <form class="review-form" id="local-review-form" onsubmit="submitLocalReview(event)">
+                        <input id="review-username" type="text" maxlength="40" placeholder="Username" required>
+                        <textarea id="review-content" maxlength="600" placeholder="Write your review..." required></textarea>
+                        <div class="review-form-buttons">
+                            <button type="submit" class="review-form-submit">Post Review</button>
+                            <button type="button" class="review-form-cancel" onclick="closeReviewForm()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+				-->
+				
+				<div class="review-form-wrap hidden" id="review-form-wrap">
+				
+                    <form class="review-form" id="local-review-form" action="/create-review" method="POST">
+						
+						<input style="display: none;" type="text" name="tmdb_id" value="{{ info.id }}" readonly />
+						<input style="display: none;" type="text" name="media_type" value="{{ 'movie' if info.show_type == 'Movie' else 'tv' }}" readonly />
+						
+						<input id="review-title" type="text" name="review_title" maxlength="40" placeholder="Subject Title" required />
+						<textarea id="review-content" name="review_text"  maxlength="600" placeholder="Write your review..." required></textarea>
+						<label>Rating (0.5 to 5): <input type="number" name="rating" min="0.5" max="5" step="0.5" required /></label><br/>
+						
+                        <div class="review-form-buttons">
+                            <button type="submit" class="review-form-submit">Post Review</button>
+                            <button type="button" class="review-form-cancel" onclick="closeReviewForm()">Cancel</button>
+                        </div>
+						
+                    </form>
+					
+                </div>
+				
+				
+                <div id="reviews-list" class="mock-reviews" aria-label="Mock Reviews">
+					{% if reviews %}
+						{% for review, user in reviews %}
+							
+							<article class="mock-review-card">
+								<div class="mock-review-top">
+									<span class="mock-review-user"><span class="mock-review-avatar"><i class="bi bi-person-fill"></i></span>{{ user.username }}</span>
+									<span class="mock-review-rating">
+									{% set full_stars = review.rating | round(0, 'floor') | int %}
+									{% set half_star = review.rating - full_stars %}
+									{% for i in range(full_stars) %}
+										<i class="star-icon fa fa-star"></i>
+									{% endfor %}
+									
+									{% if half_star %}
+										<i class="star-icon fa fa-star-half-full"></i>
+									{% endif %}
+										
+									{% set blank_stars = 5 - (full_stars + (half_star | round(0, 'ceil') | int)) %}
+									{% for i in range(blank_stars) %}
+										<i class="star-icon fa fa-star-o"></i>
+									{% endfor %}
+									
+									&nbsp;({{review.rating}})
+									</span>
+								</div>
+								<h3 style="font-size: 1.25rem;">{{ review.review_title }}</h3>
+								<p class="mock-review-text">{{ review.review_text }}</p>
+								<p class="mock-review-date">Posted on {{ review.created_at.strftime("%B %d, %Y") }}</p>
+							</article>
+							
+						{% endfor %}
+					{% endif %}
+				
+					<!--
+                    <article class="mock-review-card">
+                        <div class="mock-review-top">
+                            <span class="mock-review-user"><span class="mock-review-avatar"><i class="bi bi-person-fill"></i></span>ShrekFan88</span>
+                            <span class="mock-review-rating">★★★★☆</span>
+                        </div>
+                        <p class="mock-review-text">He is the greenest and meanest.</p>
+                        <p class="mock-review-date">Posted on April 18, 2026</p>
+                    </article>
+
+                    <article class="mock-review-card">
+                        <div class="mock-review-top">
+                            <span class="mock-review-user"><span class="mock-review-avatar"><i class="bi bi-person-fill"></i></span>SinemaNerd</span>
+                            <span class="mock-review-rating">★★★★★</span>
+                        </div>
+                        <p class="mock-review-text">Shrek is love. Shrek is life.</p>
+                        <p class="mock-review-date">Posted on April 19, 2026</p>
+                    </article>
+					-->
+                </div>
+				
+				<!--
+                <div class="local-reviews-list" id="local-reviews-list" aria-label="User Reviews"></div>
+				
+				<form action="/create-review" method="POST" >
+					<input style="display: none;" type="text" name="tmdb_id" value="{{ info.id }}" readonly />
+					<input style="display: none;" type="text" name="media_type" value="{{ 'movie' if info.show_type == 'Movie' else 'tv' }}" readonly />
+					<input type="text" name="review_title" required />
+					<input type="text" name="review_text" required />
+					<input type="number" name="rating" min="0.5" max="5" step="0.5" required />
+					<input type="submit" value="Send"/>
+				</form>
+				-->
+            </section>
+
+			<!--
+			<button class="add-to-favorites">Add to Favorites</button>
+			<button class="remove-from-favorites">Remove from Favorites</button>
+			-->
+		</div>
+    </div>
+	
+	<script>
+		const videosData = {{ info.videos | tojson() }};
+		
+	  var tag = document.createElement('script');
+	  tag.src = "https://www.youtube.com/iframe_api";
+	  document.body.appendChild(tag);
+	  
+	  var player;
+	  var currentIndex = 0;
+	  var videoIds = [];
+
+	  videosData.forEach(vid => {
+		videoIds.push(vid.key);
+	  });
+	  
+	  console.log(videoIds);
+
+	  function onYouTubeIframeAPIReady() 
+	  {
+		  player = new YT.Player('player', {
+			  height: '360',
+			  width: '640',
+			  videoId: videoIds[currentIndex], // default
+			  playerVars: { enablejsapi: 1, origin: 'http://localhost:5000' }
+		  });
+	  }
+
+	  function playVideo(offset) 
+	  {
+		currentIndex += offset;
+	  
+		if (currentIndex >= videoIds.length)
+		{
+			currentIndex = 0;
+			console.log("Start back here ", currentIndex);
+		}
+		else if (currentIndex < 0)
+		{
+			currentIndex = videoIds.length - 1;
+			console.log("End of the list ", currentIndex);
+		}
+		
+		
+		player.cueVideoById(videoIds[currentIndex]);
+	  }
+	  
+	</script>
+	
+	<script>
+		//const favoriteStorageKey = 'sinema-favorites';
+		//const localReviewStoragePrefix = 'sinema-local-reviews-';
+        //const currentMediaKey = {{ (info.show_type ~ '|' ~ info.title ~ '|' ~ info.year_released) | tojson }};
+		const favoriteBtn = document.getElementById('favorite-btn');
+		
+		function redirectToLogin() {
+			location.replace("/login");
+		}
+		
+		function setFavoriteButtonState(isFavorite) {
+
+            favoriteBtn.textContent = isFavorite ? 'Remove From Favorites' : 'Add To Favorites';
+			favoriteBtn.classList.toggle('active', isFavorite);
+            favoriteBtn.ariaPressed = isFavorite ? "true" : "false";
+        }
+
+        function toggleFavorite() {
+			//favoriteBtn.classList.toggle('active');
+			setFavoriteButtonState(!(favoriteBtn.ariaPressed == "true"));
+			/*
+			if (favoriteBtn.ariaPressed == "true")
+			{
+				setFavoriteButtonState(false);
+			}
+			else
+			{
+				setFavoriteButtonState(true);
+			}
+			
+			console.log(favoriteBtn.ariaPressed);
+			*/
+			
+			if (favoriteBtn.ariaPressed == "true")
+			{
+				fetch('/save-media', {
+					method: 'POST',
+					body: JSON.stringify({ 
+						tmdb_id: {{ info.id | tojson() }},
+						media_type: ( {{ info.show_type | tojson() }} == "Movie" ? "movie" : "tv"),
+					}),
+					headers: { 'Content-Type': 'application/json' }
+				});
+			}
+			else
+			{
+				fetch('/delete-media', {
+					method: 'DELETE',
+					body: JSON.stringify({ 
+						tmdb_id: {{ info.id | tojson() }},
+						media_type: ( {{ info.show_type | tojson() }} == "Movie" ? "movie" : "tv"),
+					}),
+					headers: { 'Content-Type': 'application/json' }
+				});
+			}
+        }
+
+        function initFavoriteButton() {
+            //setFavoriteButtonState(false);
+			setFavoriteButtonState({{ favorite_flag | tojson() }});
+        }
+
+		/*
+        function getFavoriteKeys() {
+            try {
+                const raw = localStorage.getItem(favoriteStorageKey);
+                const parsed = raw ? JSON.parse(raw) : [];
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (error) {
+                return [];
+            }
+        }
+
+        function saveFavoriteKeys(keys) {
+            localStorage.setItem(favoriteStorageKey, JSON.stringify(keys));
+        }
+
+        function setFavoriteButtonState(isFavorite) {
+            const favoriteBtn = document.getElementById('favorite-btn');
+            if (!favoriteBtn) {
+                return;
+            }
+
+            favoriteBtn.textContent = isFavorite ? 'Remove From Favorites' : 'Add To Favorites';
+            favoriteBtn.classList.toggle('active', isFavorite);
+            favoriteBtn.setAttribute('aria-pressed', isFavorite ? 'true' : 'false');
+        }
+
+        function toggleFavorite() {
+            const keys = getFavoriteKeys();
+            const index = keys.indexOf(currentMediaKey);
+
+            if (index >= 0) {
+                keys.splice(index, 1);
+                saveFavoriteKeys(keys);
+                setFavoriteButtonState(false);
+                return;
+            }
+
+            keys.push(currentMediaKey);
+            saveFavoriteKeys(keys);
+            setFavoriteButtonState(true);
+        }
+
+        function initFavoriteButton() {
+            const keys = getFavoriteKeys();
+            setFavoriteButtonState(keys.includes(currentMediaKey));
+        }
+		*/
+
+		/*
+        function getLocalReviewStorageKey() {
+            return localReviewStoragePrefix + currentMediaKey;
+        }
+
+        function getLocalReviews() {
+            try {
+                const raw = localStorage.getItem(getLocalReviewStorageKey());
+                const parsed = raw ? JSON.parse(raw) : [];
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (error) {
+                return [];
+            }
+        }
+
+        function saveLocalReviews(reviews) {
+            localStorage.setItem(getLocalReviewStorageKey(), JSON.stringify(reviews));
+        }
+		
+		
+        function escapeHtml(value) {
+            return value
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+		*/
+		
+        function toggleReviewForm() {
+            const wrap = document.getElementById('review-form-wrap');
+            const btn = document.getElementById('write-review-btn');
+            if (!wrap || !btn) {
+                return;
+            }
+
+            const isHidden = wrap.classList.contains('hidden');
+            wrap.classList.toggle('hidden', !isHidden);
+            btn.textContent = isHidden ? 'Hide Review Form' : 'Write Review';
+        }
+
+        function closeReviewForm() {
+            const wrap = document.getElementById('review-form-wrap');
+            const btn = document.getElementById('write-review-btn');
+            if (!wrap || !btn) {
+                return;
+            }
+
+            wrap.classList.add('hidden');
+            btn.textContent = 'Write Review';
+        }
+		
+		/*
+        function formatPostedDate() {
+            return new Date().toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric'
+            });
+        }
+
+        function renderLocalReviews() {
+            const list = document.getElementById('local-reviews-list');
+            if (!list) {
+                return;
+            }
+
+            const reviews = getLocalReviews();
+            if (!reviews.length) {
+                list.innerHTML = '<p class="local-reviews-empty">No reviews yet.</p>';
+                return;
+            }
+
+            const cards = reviews.map((review) => {
+                return (
+                    '<article class="mock-review-card">' +
+                        '<div class="mock-review-top">' +
+                            '<span class="mock-review-user"><span class="mock-review-avatar"><i class="bi bi-person-fill"></i></span>' + escapeHtml(review.user) + '</span>' +
+                        '</div>' +
+                        '<p class="mock-review-text">' + escapeHtml(review.text) + '</p>' +
+                        '<p class="mock-review-date">Posted on ' + escapeHtml(review.datePosted) + '</p>' +
+                    '</article>'
+                );
+            });
+
+            list.innerHTML = cards.join('');
+        }
+
+        function submitLocalReview(event) {
+            event.preventDefault();
+
+            const usernameInput = document.getElementById('review-username');
+            const contentInput = document.getElementById('review-content');
+            if (!usernameInput || !contentInput) {
+                return;
+            }
+
+            const user = usernameInput.value.trim();
+            const text = contentInput.value.trim();
+            if (!user || !text) {
+                return;
+            }
+
+            const reviews = getLocalReviews();
+            reviews.push({
+                user,
+                text,
+                datePosted: formatPostedDate()
+            });
+
+            saveLocalReviews(reviews);
+            usernameInput.value = '';
+            contentInput.value = '';
+            closeReviewForm();
+            renderLocalReviews();
+        }
+		*/
+		
+		
+		
+		function copyShareLink()
+		{
+			const shareBtn = document.getElementById('share-btn');
+			const originalText = shareBtn.textContent;
+
+			navigator.clipboard.writeText(window.location.href)
+				.then(() => {
+					shareBtn.textContent = 'Link Copied!';
+					setTimeout(() => {
+						shareBtn.textContent = originalText;
+					}, 1800);
+				})
+				.catch(() => {
+					shareBtn.textContent = 'Copy Failed';
+					setTimeout(() => {
+						shareBtn.textContent = originalText;
+					}, 1800);
+				});
+		}
+
+		initFavoriteButton();
+		//	renderLocalReviews();
+		console.log({{ favorite_flag | tojson() }});
+	</script>
+</body>
+</html>

@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sinema | Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000000;
+            font-family: "Inter", Arial, sans-serif;
+            color: #8C8C8C;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav {
+            width: 100%;
+            height: 85px;
+            background-color: transparent;
+            border-bottom: 1px solid #910012;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 48px;
+        }
+
+        .logo {
+            font-family: "Castellar", serif;
+            font-size: 40px;
+            font-weight: 700;
+            color: #910012;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            color: #910012;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            color: #D7D7D7;
+        }
+
+        .login-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            padding: 48px;
+            border: 1px solid #910012;
+            border-radius: 5px;
+            background-color: #0a0a0a;
+        }
+
+        .login-card h1 {
+            font-size: 28px;
+            color: #D7D7D7;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            color: #8C8C8C;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            padding: 12px;
+            border: 1px solid #333333;
+            border-radius: 5px;
+            background-color: #1a1a1a;
+            color: #D7D7D7;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #910012;
+            background-color: #222222;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            font-size: 13px;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .remember-me label {
+            margin: 0;
+            color: #8C8C8C;
+            cursor: pointer;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background-color: #910012;
+            border: 1px solid #910012;
+            border-radius: 5px;
+            color: #D7D7D7;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-bottom: 16px;
+        }
+
+        .btn-login:hover {
+            background-color: #b80015;
+        }
+
+        .links-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .links-container a {
+            font-size: 13px;
+            color: #910012;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .links-container a:hover {
+            color: #D7D7D7;
+        }
+
+        .register-link {
+            text-align: center;
+            font-size: 13px;
+            color: #8C8C8C;
+            border-top: 1px solid #333333;
+            padding-top: 16px;
+            margin-top: 16px;
+        }
+
+        .register-link a {
+            color: #910012;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .register-link a:hover {
+            color: #D7D7D7;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn-secondary {
+            flex: 1;
+            padding: 12px;
+            background-color: transparent;
+            border: 1px solid #910012;
+            border-radius: 5px;
+            color: #910012;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(145, 0, 18, 0.1);
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 0 24px;
+            }
+
+            .logo {
+                font-size: 28px;
+            }
+
+            .login-card {
+                padding: 36px 24px;
+            }
+
+            .login-card h1 {
+                font-size: 24px;
+            }
+
+            .links-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a class="logo" href="/">SINEMA</a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+        </ul>
+    </nav>
+
+    <div class="login-container">
+        <div class="login-card">
+            <h1>Login</h1>
+            <form method="POST" action="/login">
+                <div class="form-group">
+                    <label for="username">Username or Email</label>
+                    <input type="text" id="username" name="username" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required />
+                </div>
+
+                <button type="submit" class="btn-login">Sign In</button>
+            </form>
+
+            <div class="links-container">
+                <a href="/forgot-password">Forgot Password?</a>
+                <a href="/register">Create Account</a>
+            </div>
+
+            <div class="button-group">
+                <a href="/register" class="btn-secondary">Register</a>
+                <a href="/" class="btn-secondary">Home</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

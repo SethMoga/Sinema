@@ -1,0 +1,16 @@
+# Python virtual environment inside demo
+sinema/Include/
+sinema/Lib/
+sinema/Scripts/
+sinema/pyvenv.cfg
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Optional: IDE/editor files
+.vscode/
+*.idea/
+
+# Folder that holds database file
+sinema/var/

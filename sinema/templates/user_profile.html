@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{{ user_data.username }}'s Profile</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Latest compiled and minified CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Bootstrap 5 Font Icons -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+        <!-- Latest compiled JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+		
+		<!-- Load Font Awesome from a CDN -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+    
+		<!--YOU CAN REMOVE THIS STYLE: IT IS ONLY HERE FOR TESTING THE 'sticky-top' (sticky position) OF THE HEADER-->
+		<style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background-color: #000000;
+                font-family: "Inter", "Source Sans Pro", Arial, sans-serif;
+                color: #f2f2f2;
+                min-height: 100vh;
+                overflow-x: hidden;
+                position: relative;
+            }
+
+            nav {
+                width: 100%;
+                height: 85px;
+                background-color: #000;
+                border-bottom: 1px solid rgba(145, 0, 18, 0.7);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 48px;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 30;
+                /*backdrop-filter: blur(1px);*/
+            }
+            
+            .logo {
+                font-family: "Castellar", serif;
+                font-size: 40px;
+                font-weight: 700;
+                color: #910012;
+                text-decoration: none;
+            }
+            
+            .nav-links {
+                display: flex;
+                gap: 32px;
+                list-style: none;
+            }
+
+            .nav-links a { 
+                font-family: Arial, sans-serif;
+                font-size: 16px;
+                color: #910012;
+                text-decoration: none;
+            }
+            
+            .nav-links a:hover {
+                color: #910012;
+                opacity: 0.8;
+            }
+
+            
+            .offcanvas-header, .offcanvas-body {
+                background-color: #000;
+            }
+
+            .btn-close {
+				background: url("{{ url_for('static', filename='images/x-circle.svg') }}") center/2.5em auto no-repeat !important;
+				width: 2.5rem;
+				height: 2.5rem;
+			}
+            
+            .search-container {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            form {
+                display: flex;
+                align-items: center;
+            }
+
+            #searchbar {
+                width: 200px;
+                height: 40px;
+                padding: 10px;
+                font-family: Arial, sans-serif;
+                font-size: 13px;
+                color: #000000;
+                background-color: #D7D7D7;
+                border: 1px solid #D7D7D7;
+                border-radius: 5px;
+                outline: none;
+                transition: border-color 0.2s;
+            }
+
+            #searchbar:focus {
+                border-color: #333333;
+            }
+
+            button[type="submit"] {
+                height: 40px;
+                padding: 0 16px;
+                margin-left: 8px;
+                background-color: transparent;
+                border: 1px solid #910012;
+                border-radius: 5px;
+                color: #910012;
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            button[type="submit"]:hover {
+                background-color: rgba(145, 0, 18, 0.1);
+            }
+
+            .login-btn {
+                height: 40px;
+                width: 40px;
+                margin-left: 8px;
+                background-color: transparent;
+                border: 1px solid #910012;
+                border-radius: 50%;
+                color: #910012;
+                font-size: 18px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+            }
+
+            .login-btn:hover {
+                background-color: rgba(145, 0, 18, 0.1);
+            }
+			
+			
+			.filter-section {
+				padding: 24px 48px;
+				border-bottom: 1px solid #333333;
+				display: flex;
+				gap: 12px;
+				align-items: center;
+				flex-wrap: wrap;
+			}
+
+			.filter-label {
+				font-size: 13px;
+				color: #8C8C8C;
+				font-weight: 600;
+				margin-right: 12px;
+			}
+
+			.filter-chip {
+				padding: 8px 16px;
+				background-color: transparent;
+				border: 1px solid #555555;
+				border-radius: 20px;
+				color: #8C8C8C;
+				font-size: 13px;
+				cursor: pointer;
+				transition: all 0.2s;
+			}
+
+			.filter-chip:hover {
+				border-color: #910012;
+				color: #D7D7D7;
+			}
+
+			.filter-chip.active {
+				background-color: #910012;
+				border-color: #910012;
+				color: #D7D7D7;
+			}
+            
+
+            .grid-layout {
+                /*display: grid;
+                grid-template-columns: auto auto auto;*/
+                /*padding: 10px;*/
+
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+                justify-content: center;
+                gap: 20px;
+            }
+
+            .grid-layout div {
+                background-color: #f1f1f1;
+                border: 1px solid black;
+                padding: 0px;
+                text-align: center;
+            }
+			
+			
+			.review-wrapper {
+				border: 2px solid #910012;
+				border-radius: 3px;
+				margin-bottom: 0.8rem;
+				padding: 8px;
+				color: white;
+			}
+			
+			.review-title {
+				margin-top: 8px;
+				font-size: 1.15rem;
+			}
+			
+			.media-link {
+				color: white;
+				text-decoration: none;
+				transition: all 0.2s ease;
+			}
+			
+			.media-link:hover {
+				color: #910012;
+				text-decoration: underline;
+			}
+			
+			.media-image {
+				width: 100%;
+			}
+			
+			.login-wrapper {
+				position: relative;
+				width: 120px;
+				/*background-color: yellow;*/
+				display: flex;
+				justify-content: center;
+			}
+			
+			#login-button-link {
+				
+				display: block;
+				background-color: #910012; 
+				color: white;
+				transition: background-color 0.2s ease, color 0.2s ease;
+				cursor: pointer;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			#logout-button-link {
+				display: block;
+				background-color: #910012; 
+				color: white;
+				transition: all 0.2s ease;
+				cursor: pointer;
+				border-radius: 5px;
+				padding: 8px 16px;
+				margin: 0 5px;
+				text-decoration: none;
+			}
+			
+			#login-button-link:hover {
+				background-color: white;
+				color: #910012;
+			}
+			
+			.logged-in-menu {
+				display: none;
+				position: absolute;
+				/*background-color: green;*/
+				padding-top: 6px;
+				color: black;
+				width: 100%;
+				top: 100%;
+				text-align: center;
+			}
+			
+			.menu-nav {
+				background-color: white;
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				border-radius: 4px;
+			}
+			
+			.menu-nav > * {
+				padding: 6px 0;
+			}
+			
+			#login-button-link:hover + .logged-in-menu {
+				display: block;
+			}
+			
+			#login-button-link + .logged-in-menu:hover {
+				display: block;
+			}
+
+		</style>
+    </head>
+    <body>
+        <!--IN PROGRESS-->
+        <header class="sticky-top shadow">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+
+                    <a class="logo" href="/">
+                        SINEMA
+                    </a>
+
+                    <button class="btn navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#collapsibleNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="offcanvas offcanvas-top" id="collapsibleNavbar" style="height: 100vh;">
+                        <div class="offcanvas-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav nav-links w-100">
+								<div class="container-fluid d-lg-flex justify-content-center gap-2 text-center">
+									<li class="nav-item">
+										<a class="nav-link" href="/movies">Movies</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="/tv">TV</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="/trending">Trending</a>
+									</li>
+								</div>
+								
+								<li class="nav-item">
+								
+									<div class="container-fluid justify-content-center search-container">
+										<form method="GET" action="/search">
+											<input id="searchbar" type="search" name="search" placeholder="Search..." required />
+											<button type="submit">Search</button>
+										</form>
+									</div>
+								</li>
+								
+								<li class="nav-item">
+									<!--<a href="/login" class="login-btn" title="Login">👤</a>-->
+										
+									<div class="container-fluid justify-content-center login-wrapper">
+									{% if user_data %}
+										<a id="login-button-link" class="login-btn"><i class="bi bi-person-fill"></i></a>
+										<div class="logged-in-menu">
+											<ul class="menu-nav">
+												<li><p style="margin: 0; font-weight: bold;">{{ user_data.username }}</p></li>
+												<!--<li><p style="margin: 0;">UserID: {{ session.get('user_id') }}</p></li>-->
+												<li><a href="/user/{{ user_data.username }}">My Profile</a></li>
+												<li><a id="logout-button-link" href="/logout">Logout</a></li>
+											</ul>
+										</div>
+									{% else %}
+										<a id="login-button-link" class="btn" href="/login">Login</a>
+									{% endif %}
+									</div>
+								</li>
+								
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </nav>
+        </header>
+        <!--IN PROGRESS-->
+
+		<div class="container">
+
+            <div>
+                <h1 class="pt-4 pb-3">My Profile</h1>
+            </div>
+            <div class="row">
+
+                <div class="col-lg-4 p-3 text-center">
+                    <!--<img src="https://placehold.co/400" alt="user-profile-pic" class="rounded-circle" style="width: 150px; height: 150px;">-->
+					<div style="margin: 12px auto; background-color: #910012; font-size: 4.4rem; display: flex; width: 150px; height: 150px; border-radius: 50%; justify-content: center; align-items: center;">
+						<i class="bi bi-person-fill"></i>
+					</div>
+			        <h2>{{ user_data.username }}</h2>
+                    <p>{{ user_data.email }}</p>
+                </div>
+
+                
+                <div class="col-lg-8 p-3">
+                    
+                    <div class="container-fluid">
+                        <div class="filter-section">
+							<span class="filter-label">Filter:</span>
+							<button class="filter-chip active" id="filter-all" onclick="filterResults('all')">All</button>
+							<button class="filter-chip" id="filter-movie" onclick="filterResults('movie')">Movies</button>
+							<button class="filter-chip" id="filter-tv" onclick="filterResults('tv')">TV Shows</button>
+						</div>
+                    </div>
+                    
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist" style="margin-top: 8px;">
+                        <li class="nav-item">
+                            <a class="nav-link active"data-bs-toggle="tab" href="#favorites" style="color: #910012;">Favorites</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#reviews" style="color: #910012;">Reviews</a>
+                        </li>
+                    </ul>
+                    
+                    <!-- Tab panes -->
+                    <div class="tab-content text-dark">
+                        <div id="favorites" class="container tab-pane active"><br>
+							
+							<div class="container">
+								<div class="row">
+									{% if user_sm_data %}
+										{% for sm in user_sm_data %}
+											<div class="result-card col-md-3 col-sm-4 mb-4 position-relative" data-type="{{ sm.media_type }}">
+												<div class="card bg-dark">
+													<img class="card-img-top media-image" src="{{ sm.card_data.image_url }}" alt="Card image">
+													<div class="card-body">
+															<p class="card-title text-center small"><a class="media-link stretched-link" href="{{ sm.card_data.url }}">{{ sm.card_data.title }}</a></p>
+													</div>
+												</div>
+											</div>
+										{% endfor %}
+									{% endif %}
+								</div>
+							</div>
+							
+                        </div>
+						
+                        <div id="reviews" class="container tab-pane"><br>
+							{% if user_reviews %}
+								{% for review in user_reviews %}
+									<div class="result-card" data-type="{{ review.media_type }}">
+										<div class="review-wrapper">
+											<p class="review-title"><strong>{{ review.review_title }}</strong></p>
+											<p>Rating Score: {{ review.rating }}</p>
+											<p class="review-msg">{{ review.review_text }}</p>
+											<p class="review-date">Posted on {{ review.created_at }}</p>
+											<a href="/{{ 'movies' if review.media_type == 'movie' else 'tv-series'}}/{{ review.tmdb_id }}">View Page</a>
+										</div>
+									</div>
+								{% endfor %}
+							{% endif %}
+							
+							<!--
+							<div class="result-card" data-type="movie">
+								<div class="review-wrapper">
+									<p class="review-title"><strong>Live Action Snow White Was a Mistake!</strong></p>
+									<p class="review-date">11/23/25</p>
+									<p class="review-msg">
+										Complete mediocre! The fact that Disney invested millions of dollars into this movie is 
+										the biggest joke in cinema history. It is already bad that they though it was a good 
+										idea to cast Rachel Zegler as Snow white. Also, the costume for Snow White looks like 
+										something that was bought at Party City... heck, maybe even from a freakin' WALMART!!!
+									</p>
+								</div>
+							</div>
+							
+							<div class="result-card" data-type="tv">
+								<div class="review-wrapper">
+									<p class="review-title"><strong>Velma is an awful tv-series</strong></p>
+									<p class="review-date">11/23/25</p>
+									<p class="review-msg">
+										How is it even possible for Velma to get a second season?!?!
+									</p>
+								</div>
+							</div>
+							-->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+		</div>
+		
+	<script>
+        function filterResults(type) {
+            const cards = document.querySelectorAll('.result-card');
+            const filterButtons = document.querySelectorAll('.filter-chip');
+
+            // Update active filter button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`filter-${type}`).classList.add('active');
+
+            // Filter cards
+            cards.forEach(card => {
+                if (type === 'all') {
+                    card.style.display = '';
+                } else if (card.getAttribute('data-type') === type) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function handleSort(value) {
+            const cards = Array.from(document.querySelectorAll('.result-card'));
+            const container = document.getElementById('search-result');
+
+            let sortedCards = [...cards];
+
+            if (value === 'title') {
+                sortedCards.sort((a, b) => {
+                    const titleA = a.querySelector('.title').textContent.toUpperCase();
+                    const titleB = b.querySelector('.title').textContent.toUpperCase();
+                    return titleA.localeCompare(titleB);
+                });
+            } else if (value === 'id') {
+                sortedCards.sort((a, b) => {
+                    const idA = parseInt(a.querySelector('.id').textContent.split(': ')[1]);
+                    const idB = parseInt(b.querySelector('.id').textContent.split(': ')[1]);
+                    return idB - idA;
+                });
+            }
+
+            // Clear and re-add sorted cards
+            container.innerHTML = '';
+            sortedCards.forEach(card => container.appendChild(card));
+        }
+    </script>
+	
+    </body>
+</html>
