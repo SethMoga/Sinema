@@ -178,7 +178,7 @@ db.init_app(app)
 # ---------------- Configuration ----------------
 app.config["SESSION_PERMANENT"] = False     # Sessions expire when browser closes
 app.config["SESSION_TYPE"] = "filesystem"     # Store session data on the filesystem
-app.config["SESSION_FILE_DIR"] = "./flask_session"
+app.config["SESSION_FILE_DIR"] = "/tmp/flask_session"
 Session(app)
 
 #import after initialization
