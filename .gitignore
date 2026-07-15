@@ -4,10 +4,7 @@
 !.env.example
 
 # Python virtual environment inside sinema
-sinema/Include/
-sinema/Lib/
-sinema/Scripts/
-sinema/pyvenv.cfg
+sinema/venv/
 
 # Flask session files
 sinema/flask_session/
