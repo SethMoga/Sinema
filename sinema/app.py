@@ -168,7 +168,7 @@ app.secret_key = "test"
 
 #database config
 #this is the database i want to connect to
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////tmp/app.db"
 #disable unneccessary tracking
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
