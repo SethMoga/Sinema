@@ -193,6 +193,42 @@ app.register_blueprint(auth_bp)
 app.register_blueprint(review_bp)
 app.register_blueprint(user_bp)
 
+#create db file -TEMP- ===UNCOMMENT THIS TO CREATE LOCAL DB FILE===
+with app.app_context():
+    db.create_all()
+    
+    '''
+    #create test user for op checks 
+    test_user = User(email="abc@gmail.com", username="abc", password_hash="1234")
+    test_user.set_password(test_user.password_hash)
+    db.session.add(test_user)
+    db.session.commit()
+
+    #create SavedMedia records for user id '3' (username: abc)
+    test_sm1 = SavedMedia(tmdb_id=447273, user_id=3, media_type="movie")
+    db.session.add(test_sm1)
+    db.session.commit()
+    
+    test_sm2 = SavedMedia(tmdb_id=1396, user_id=3, media_type="tv")
+    db.session.add(test_sm2)
+    db.session.commit()
+    
+    test_r1 = Review(tmdb_id=1996, user_id=3, media_type="tv", review_title="One of the Best Shows in Cartoon History", review_text="The Flintstones is handsdown one of the best and iconic classic cartoons. I wish modern cartoons would follow this formula.", rating=4.5)
+    db.session.add(test_r1)
+    db.session.commit()
+    '''
+    
+    '''
+    #create test user for op checks 
+    test_user = User(email="alphadude832@gmail.com", username="The Alpha Dude", password_hash="pizza9")
+    test_user.set_password(test_user.password_hash)
+    db.session.add(test_user)
+    db.session.commit()
+    '''
+
+
+
+
 @app.route('/')
 def index():
     user_data = {}
@@ -412,37 +448,5 @@ def api_ai_search():
     })
 
 if __name__ == '__main__':
-    #create db file -TEMP- ===UNCOMMENT THIS TO CREATE LOCAL DB FILE===
-    with app.app_context():
-        db.create_all()
-        
-        '''
-        #create test user for op checks 
-        test_user = User(email="abc@gmail.com", username="abc", password_hash="1234")
-        test_user.set_password(test_user.password_hash)
-        db.session.add(test_user)
-        db.session.commit()
-
-        #create SavedMedia records for user id '3' (username: abc)
-        test_sm1 = SavedMedia(tmdb_id=447273, user_id=3, media_type="movie")
-        db.session.add(test_sm1)
-        db.session.commit()
-        
-        test_sm2 = SavedMedia(tmdb_id=1396, user_id=3, media_type="tv")
-        db.session.add(test_sm2)
-        db.session.commit()
-        
-        test_r1 = Review(tmdb_id=1996, user_id=3, media_type="tv", review_title="One of the Best Shows in Cartoon History", review_text="The Flintstones is handsdown one of the best and iconic classic cartoons. I wish modern cartoons would follow this formula.", rating=4.5)
-        db.session.add(test_r1)
-        db.session.commit()
-        '''
-        
-        '''
-        #create test user for op checks 
-        test_user = User(email="alphadude832@gmail.com", username="The Alpha Dude", password_hash="pizza9")
-        test_user.set_password(test_user.password_hash)
-        db.session.add(test_user)
-        db.session.commit()
-        '''
         
     app.run()
