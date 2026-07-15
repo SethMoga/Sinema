@@ -24,9 +24,11 @@ app = Flask(__name__)
 # TMDB - used to hydrate AI-returned titles with posters/ratings
 MOVIE_URL = "https://api.themoviedb.org/3/search/movie"
 TV_URL = "https://api.themoviedb.org/3/search/tv"
+TMDB_API_KEY = os.getenv("TMDB_API_KEY", "")
+
 TMDB_HEADERS = {
     "accept": "application/json",
-    "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMDI1ZTk3NWVlNDMwNmFjNzhlODhhMWI4NjliYTc5ZSIsIm5iZiI6MTc3MDA2NDg3Ny44MzMsInN1YiI6IjY5ODEwYmVkYjQyNmE4ODBjNGUwNjA5YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.auRbCOLYwLfc1dtoFdm4Idnb4XUXIBXjrJTQa6YkNVc"
+    "Authorization": f"Bearer {TMDB_API_KEY}"
 }
 
 # OpenRouter - the AI brain
@@ -202,7 +204,7 @@ def index():
     ######DISCLAIMER: THE FOLLOWING CODE IN THIS FUNCTION MAY BE LATER MODIFIED/MOVED TO DIFFERENT SCRIPT(S)############
     headers = {
         "accept": "application/json",
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMDI1ZTk3NWVlNDMwNmFjNzhlODhhMWI4NjliYTc5ZSIsIm5iZiI6MTc3MDA2NDg3Ny44MzMsInN1YiI6IjY5ODEwYmVkYjQyNmE4ODBjNGUwNjA5YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.auRbCOLYwLfc1dtoFdm4Idnb4XUXIBXjrJTQa6YkNVc"
+        "Authorization": f"Bearer {TMDB_API_KEY}"
     }
     # get latest released movies from TMDB (now playing)
     params = {
@@ -246,7 +248,7 @@ def movies():
     
     headers = {
         "accept": "application/json",
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMDI1ZTk3NWVlNDMwNmFjNzhlODhhMWI4NjliYTc5ZSIsIm5iZiI6MTc3MDA2NDg3Ny44MzMsInN1YiI6IjY5ODEwYmVkYjQyNmE4ODBjNGUwNjA5YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.auRbCOLYwLfc1dtoFdm4Idnb4XUXIBXjrJTQa6YkNVc"
+        "Authorization": f"Bearer {TMDB_API_KEY}"
     }
     params = {
         "language": "en-US",
@@ -283,7 +285,7 @@ def tv():
 
     headers = {
         "accept": "application/json",
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMDI1ZTk3NWVlNDMwNmFjNzhlODhhMWI4NjliYTc5ZSIsIm5iZiI6MTc3MDA2NDg3Ny44MzMsInN1YiI6IjY5ODEwYmVkYjQyNmE4ODBjNGUwNjA5YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.auRbCOLYwLfc1dtoFdm4Idnb4XUXIBXjrJTQa6YkNVc"
+        "Authorization": f"Bearer {TMDB_API_KEY}"
     }
     params = {
         "language": "en-US",
@@ -320,7 +322,7 @@ def trending():
     
     headers = {
         "accept": "application/json",
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMDI1ZTk3NWVlNDMwNmFjNzhlODhhMWI4NjliYTc5ZSIsIm5iZiI6MTc3MDA2NDg3Ny44MzMsInN1YiI6IjY5ODEwYmVkYjQyNmE4ODBjNGUwNjA5YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.auRbCOLYwLfc1dtoFdm4Idnb4XUXIBXjrJTQa6YkNVc"
+        "Authorization": f"Bearer {TMDB_API_KEY}"
     }
     try:
         trending_res = requests.get("https://api.themoviedb.org/3/trending/movie/day", headers=headers)

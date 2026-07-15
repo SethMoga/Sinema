@@ -1,5 +1,11 @@
 import requests
 from pprint import pprint
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+TMDB_API_KEY = os.getenv("TMDB_API_KEY", "")
 
 #constants
 #url = "https://api.themoviedb.org/3/person/popular?language=en-US&page=1"
@@ -8,7 +14,7 @@ TV_URL = "https://api.themoviedb.org/3/search/tv"
 
 headers = {
     "accept": "application/json",
-    "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMDI1ZTk3NWVlNDMwNmFjNzhlODhhMWI4NjliYTc5ZSIsIm5iZiI6MTc3MDA2NDg3Ny44MzMsInN1YiI6IjY5ODEwYmVkYjQyNmE4ODBjNGUwNjA5YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.auRbCOLYwLfc1dtoFdm4Idnb4XUXIBXjrJTQa6YkNVc"
+    "Authorization": f"Bearer {TMDB_API_KEY}"
 }
 
 def search_tmdb(search):
