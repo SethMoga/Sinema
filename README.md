@@ -15,8 +15,6 @@ Originally developed as a collaborative team project, Sinema has continued to ev
 
 **Application:** https://sinema-sigma.vercel.app
 
-**Deployment:** Vercel
-
 ---
 
 ## Project Background
