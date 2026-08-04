@@ -1,117 +1,168 @@
-# Sinema - Movie & TV Review Platform
+# Sinema — Movie & TV Discovery & Review Platform
 
-![Project Status](https://img.shields.io/badge/status-active%20development-yellow)
+![Project Status](https://img.shields.io/badge/status-maintained-blue)
 ![Python](https://img.shields.io/badge/Python-Flask-blue)
 ![Database](https://img.shields.io/badge/Database-SQLite%20%7C%20SQLAlchemy-green)
 ![Deployment](https://img.shields.io/badge/Deployment-Vercel-purple)
 
-## Overview
+# Overview
 
-A modular full-stack Flask web application for discovering, reviewing, and managing your favorite movies and TV shows. **Sinema** combines TMDB's extensive media database with AI-powered natural language search to provide an engaging and intuitive user experience.
+Sinema is a full-stack movie and TV review platform that allows users to discover, save, rate, and review media through an interactive web experience.
 
-Originally developed as a collaborative team project, Sinema has continued to evolve through additional feature development, improvements, and refinements. The application emphasizes clean architecture, maintainability, secure authentication, and reliable API integration.
+The application integrates the **TMDB API** for movie and TV data and uses **OpenRouter AI** to provide natural language media discovery. Built with **Flask, SQLAlchemy, SQLite, JavaScript, and Bootstrap**, Sinema demonstrates experience with API integration, authentication systems, database-driven applications, and modular web architecture.
 
-## 🌐 Live Demo
-
-**Application:** https://sinema-sigma.vercel.app
+Originally developed as a collaborative software development project, Sinema has continued to evolve through additional feature development, improvements, and maintenance.
 
 ---
 
-## Project Background
+# Live Demo
 
-Sinema is a build-off and continued development of an original team project created for a software development course. The original project was developed using an Agile methodology, emphasizing collaboration, iterative development, task management, and continuous improvement throughout the development process.
+Explore the application:
 
----
-
-## Key Contributions
-
-### Backend Architecture & TMDB API Integration
-- Developed the initial Flask backend foundation that enabled movie and TV show searching through the TMDB API.
-- Implemented the search workflow where user input from the search bar is passed as a query to TMDB, processes the JSON response, and displays the returned media results.
-- Designed dynamic routing for individual media pages using TMDB IDs (e.g., `/movies/405`, `/tv-series/803`), allowing the team to expand functionality and display additional media information such as ratings, descriptions, runtime, and media type.
-
-### Database & User Interaction Integration
-- Integrated SQLite user account functionality with the frontend experience by reviewing and adapting existing database logic to work with updated UI interactions.
-- Implemented synchronization between user actions and database state, ensuring features such as favorites correctly add/remove entries and reflect the current status in the interface.
-
-### Developer Documentation & Team Support
-- Created onboarding documentation explaining how to install, create, and run a Flask application.
-- Provided example Flask code to help teammates understand framework structure, syntax, and development workflow.
-- Supported the team by establishing backend patterns that allowed further frontend and feature development.
+https://sinema-sigma.vercel.app
 
 ---
 
-## Credits
+# Screenshots
 
-Original team contributors:
+## Homepage/Search
+![Home Screenshot](link)
+![Search Screenshot](link)
+
+## AI Search Feature
+![AI_Search Screenshot](link)
+
+## Media Info
+![Media_Info1 Screenshot](link)
+![Media_Info2 Screenshot](link)
+![Media_Info3 Screenshot](link)
+
+## User Profile
+![User Profile1 Screenshot](link)
+![User Profile2 Screenshot](link)
+
+---
+
+# Key Features
+
+## Media Discovery
+
+* Search movies and TV shows using TMDB
+* View detailed media pages with:
+
+  * Ratings
+  * Descriptions
+  * Runtime
+  * Posters
+  * Trailers
+* Dynamic routing for individual media content
+
+## AI-Powered Search
+
+* Natural language media discovery using OpenRouter AI
+* Supports conversational queries such as:
+
+  * "Recommend recent science fiction movies"
+  * "Show action TV series"
+
+## User Features
+
+* User registration and authentication
+* Secure session-based authorization
+* Save favorite movies and TV shows
+* Rate media
+* Write and manage reviews
+* Personal profile pages
+
+## Reliability & User Experience
+
+* Handles missing API data gracefully
+* Responsive Bootstrap interface
+* Modular Flask architecture for maintainability
+
+---
+
+# Key Contributions
+
+## Backend Development & API Integration
+
+* Designed and developed the initial Flask backend foundation
+* Integrated TMDB API workflows for movie and TV search
+* Implemented dynamic media routes using TMDB identifiers
+* Processed API responses into user-facing media pages
+
+## Database & User Functionality
+
+* Integrated SQLite database functionality with frontend features
+* Implemented favorites, ratings, reviews, and user profiles
+* Added validation to maintain database consistency
+
+## Team Support & Documentation
+
+* Created onboarding documentation for Flask development
+* Established backend patterns to support team feature development
+* Contributed to project architecture and continued improvements
+
+---
+
+# Project Collaboration
+
+Sinema was originally developed as a collaborative software development project using an Agile workflow. The project emphasized team-based development, iterative improvements, and feature integration.
+
+## Original Contributors
+
 - ahaynes02
 - sxc83640
 - schugart
 - xa7ier
 
-Continued development and maintenance:
-- Seth Moga
+## Continued Development
+
+Following the initial team project, **Sphere Moghadami** continued development by expanding backend functionality, improving API integrations, refining user features, and maintaining the application.
 
 ---
 
-## Features
+# Technology Stack
 
-* 🔍 Search movies and TV series using TMDB
-* 🤖 AI-powered natural language search via OpenRouter API
-* 👤 User registration and secure authentication
-* ❤️ Save favorite movies and TV shows
-* ⭐ Rate movies and TV series
-* ✍️ Write and manage reviews
-* 📺 Dynamic media detail pages
-* 🎬 Embedded YouTube trailers when available
-* 🖼️ Graceful fallback handling for missing media content
-* 🔐 Session-based authentication and authorization
-* 📱 Responsive user interface built with Bootstrap 5
-* 🧩 Modular Flask architecture for maintainability
-
----
-
-## Tech Stack
-
-### Frontend
+## Frontend
 
 * HTML5
 * CSS3
 * JavaScript
 * Bootstrap 5
 
-### Backend
+## Backend
 
 * Python
 * Flask
+* SQLAlchemy
 
-### Database
+## Database
 
 * SQLite
 
-### APIs
+## APIs
 
 * TMDB API
 * OpenRouter API
 
-### Deployment
+## Tools
 
-* Vercel
-
-### Development Tools
-
-* Git
-* GitHub
+* Git/GitHub
 * Postman
 * VS Code
 * Flask Debugger
 * Browser Developer Tools
 
+## Deployment
+
+* Vercel
+
 ---
 
-## Architecture
+# Application Architecture
 
-The application follows a modular Flask architecture that separates routing, business logic, database models, templates, and static assets.
+Sinema follows a modular Flask architecture separating application layers into routes, models, services, templates, and static resources. This separation improves maintainability by isolating application logic, database operations, API communication, and frontend presentation.
 
 ```text
 app/
@@ -122,337 +173,111 @@ app/
 └── static/
 ```
 
-This structure improves maintainability, scalability, and collaboration by allowing different application layers to evolve independently.
+This structure improves maintainability and allows features such as authentication, API communication, and user interactions to evolve independently.
 
 ---
 
-## Installation
+# Technical Highlights
 
-### Prerequisites
+## API Integration
 
-* **Python 3.10 or later** (download from https://www.python.org/downloads/)
-* Git
+TMDB provides movie and TV metadata including:
 
-### Steps
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/SethMoga/Sinema.git
-   ```
-
-2. Navigate to the project directory:
-
-   ```bash
-   cd Sinema/sinema
-   ```
-
-3. Create and activate a virtual environment (strongly recommended).
-
-   **Windows**
-
-   ```bash
-   python -m venv .venv
-   .venv\Scripts\activate
-   ```
-
-   **macOS/Linux**
-
-   ```bash
-   python3 -m venv .venv
-   source .venv/bin/activate
-   ```
-
-4. Install the required dependencies:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-5. Create a `.env` file in the project root (`Sinema/sinema`) and add the following environment variables:
-
-   ```env
-   OPENROUTER_API_KEY=your_openrouter_api_key
-   TMDB_API_KEY=your_tmdb_api_key
-   ```
-
-   Obtain your API keys from:
-
-   * **OpenRouter:** https://openrouter.ai/keys
-   * **The Movie Database (TMDB):** https://developer.themoviedb.org/docs/getting-started
-
-6. Start the Flask application:
-
-   ```bash
-   python app.py
-   ```
-
-7. Open your browser and visit the local URL displayed in the terminal (typically `http://127.0.0.1:5000`).
-
----
-
-## Running the Project
-
-Start the development server:
-
-```bash
-npm run dev
-```
-
-Or, depending on your setup:
-
-```bash
-npm start
-```
-
----
-
-## Usage
-
-1. Open the live application: **https://sinema-sigma.vercel.app**
-
-2. Click **Login**.
-
-3. On the login page, click **Create Account** (or **Register**).
-
-4. On the registration page, enter your **username**, **email address**, and **password** (enter the password twice for confirmation), then click **Create Account**. After successful registration, you will be redirected to the homepage.
-
-5. Use the search bar at the top of the homepage to search for a movie or TV show, then click **Search**.
-
-6. From the search results page:
-
-   * Click any movie or TV show to open its information page.
-   * Use the **Sort By** dropdown to organize results by **latest release year** or **alphabetical order**.
-   * Use the filter options to display **All Media**, **Movies Only**, or **TV Shows Only**.
-
-7. On a media information page:
-
-   * Click **Add to Favorites** to save the title to your profile.
-   * Scroll down and click **Write Review** to open the review form.
-   * Complete the form and click **Post Review** to submit your review.
-
-8. Hover over the **user profile** icon in the upper-right corner and select **My Profile** to view your saved favorites, ratings, and reviews.
-
-9. Click the **SINEMA** logo in the upper-left corner to return to the homepage, then click **Try AI Search Feature**.
-
-10. Select one of the predefined prompts or enter your own natural language query. The AI-powered assistant will generate relevant movie and TV show recommendations based on your request.
-
----
-
-## API Integrations
-
-### TMDB API
-
-The application integrates with the TMDB API to provide:
-
-* Movie search
-* TV series search
-* Media metadata
-* Poster artwork
-* YouTube trailer links
-* Detailed media information
-
-API responses were inspected and validated before implementation. Required fields such as media IDs and titles were verified first before expanding functionality to include posters, trailers, and additional metadata.
-
-Missing API data is handled gracefully by:
-
-* Displaying placeholder images when posters are unavailable
-* Omitting the YouTube player when no trailer exists
-* Preventing incomplete API responses from affecting the user experience
-
-Validated routes include:
-
-```text
-/search?q=batman
-/movies/<id>
-/tv-series/<id>
-```
-
-### OpenRouter API
-
-OpenRouter AI powers flexible natural language media search.
-
-Example prompts include:
-
-* "Show me recent movies featuring Tom Hanks."
-* "Display action TV shows."
-* "Recommend recent science fiction movies."
-
-The AI integration expands traditional keyword search into a conversational discovery experience while maintaining relevant search results.
-
----
-
-## Database & Security
-
-The application includes persistent user functionality such as:
-
-* User registration
-* Secure login
-* Favorites
+* Search results
+* Media details
+* Posters
 * Ratings
-* Reviews
+* Trailer information
 
-Several validation rules help maintain database integrity.
+OpenRouter AI expands search functionality by allowing users to discover media through natural language requests.
 
-### Duplicate Account Prevention
+## Authentication & Security
 
-* Prevents duplicate usernames
-* Prevents duplicate email registrations
-
-### Review Validation
-
-Users may submit only one review per movie or TV show, preventing duplicate reviews and review spam.
-
-### Session Authentication
+The application includes:
 
 * Session-based authentication
-* Protected routes for authenticated users
-* Automatic redirects for unauthorized actions
+* Protected user routes
+* Duplicate account prevention
+* Review validation
+* Authorization checks to prevent unauthorized access to user data
 
-### Authorization
+## Data Validation
 
-The application includes authorization checks that prevent Broken Object Level Authorization (BOLA) attacks by ensuring users cannot access or manipulate another user's account through force browsing.
+Application workflows were tested across:
 
----
-
-## Testing & Validation
-
-Development emphasized continuous manual testing throughout implementation.
-
-### Core Workflow Validation
-
-The application's primary navigation flow was verified repeatedly during development.
-
-```text
-Homepage
-    ↓
-Search (/search)
-    ↓
-Dynamic Search Results
-    ↓
-Movie or TV Detail Page
-```
-
-### Functional Testing
-
-Verified:
-
-* Dynamic routing
-* Search functionality
 * Authentication
-* User permissions
+* Search functionality
+* Dynamic routing
 * Favorites
 * Ratings
 * Reviews
-* Media navigation
-* API requests
-
-### User Scenario Testing
-
-Test cases included:
-
-* Saving favorites while logged out
-* Posting reviews without authentication
-* Invalid search queries
-* Authentication redirects
-* Dynamic URL generation
-* Missing API data
-
-Regression testing was performed after implementing new features to ensure existing functionality remained stable.
+* Missing API data scenarios
 
 ---
 
-## Debugging & Troubleshooting
+# Running Locally
 
-Application issues were diagnosed using several debugging techniques.
+## Requirements
 
-### Flask
+* Python 3.10+
+* Git
+* TMDB API key
+* OpenRouter API key
 
-* Flask error output
-* Server-side logging
-* Console output
+## Setup
 
-### VS Code
+Clone the repository:
 
-* Python debugger
-* Variable inspection
-* Breakpoints
+```bash
+git clone https://github.com/SethMoga/Sinema.git
+cd Sinema/sinema
+```
 
-### Browser Developer Tools
+Install dependencies:
 
-* Session cookie inspection
-* Client-side debugging
-* Network requests
+```bash
+pip install -r requirements.txt
+```
 
-### API Debugging
+Create a `.env` file:
 
-Postman and Flask debugging tools were used to:
+```env
+OPENROUTER_API_KEY=your_openrouter_api_key
+TMDB_API_KEY=your_tmdb_api_key
+```
 
-* Inspect JSON responses
-* Verify required response fields
-* Validate HTTP status codes
-* Test API-dependent routes
-* Confirm fallback behavior for incomplete API responses
+Start the application:
 
----
+```bash
+python app.py
+```
 
-## Git Workflow & Collaboration
+Open:
 
-This project was developed collaboratively using Git and GitHub.
-
-### Version Control
-
-Development began by creating a stable application foundation consisting of:
-
-* Homepage
-* Search page
-* Dynamic routing
-* Media detail pages
-
-Additional functionality was built incrementally on top of this foundation.
-
-### Feature Branches
-
-Feature branches were used to isolate development work before merging into the main branch.
-
-One example involved integrating the YouTube IFrame API in a separate branch while resolving:
-
-* CORS policy issues
-* Browser navigation behavior
-* Back button inconsistencies
-
-### Commit Practices
-
-* Regular commits
-* Descriptive commit messages
-* Incremental feature development
+```text
+http://127.0.0.1:5000
+```
 
 ---
 
-## Future Improvements
+# Future Improvements
 
 Potential enhancements include:
 
 * Personalized recommendations
 * Social features
-* Advanced filtering and sorting
-* Email verification
+* Advanced filtering
 * Password recovery
-* Improved AI-assisted recommendations
-* Additional accessibility improvements
-* Improve mobile responsive design
 * Expanded automated testing
+* Additional accessibility improvements
 
 ---
 
-## Contributing
+# Repository
 
-Contributions are welcome. Fork the repository, create a feature branch, commit your changes, and open a pull request.
+GitHub:
+https://github.com/SethMoga/Sinema
 
----
-
-## Author
+## Developer
 
 **Sphere Moghadami**
-
-GitHub: https://github.com/SethMoga
